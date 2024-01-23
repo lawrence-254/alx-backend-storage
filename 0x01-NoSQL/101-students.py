@@ -11,3 +11,21 @@ def top_students(mongo_collection):
     The average score must be part of each item returns with key = averageScore
     '''
     return mongo_collection.aggregate(
+        [
+            {
+                '$project': {
+                    '_id': 1,
+                    'name': 1,
+                    'averageScore': {
+                        '$avg': {
+                            '$avg': '$topics.score',
+                        },
+                    },
+                    'topics': 1,
+                },
+            },
+            {
+                '$sort': {'averageScore': -1},
+            },
+        ]
+    )
