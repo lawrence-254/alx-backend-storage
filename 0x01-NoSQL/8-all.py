@@ -9,4 +9,4 @@ def list_all(mongo_collection):
     Return an empty list if no document in the collection
     mongo_collection will be the pymongo collection object
     '''
-    return (list(mongo_collection.find()))
+    return [col for col in mongo_collection.find()]
